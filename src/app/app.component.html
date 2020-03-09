@@ -1,28 +1,110 @@
-
-<div class="container">
-  <div>
-    <div>
-      <input [(ngModel)]="user" placeholder="user" required>
-      <br>
-      <br>
-      <input [(ngModel)]="user_id" placeholder="user_id" required>
-      <br>
-      <br>
-      <button (click)="mockedUser()" type="button">Crear cookie</button>
-      <br>
-      <input type="text" placeholder="message"  [(ngModel)]="input_message">
-    
-      <button (click)="sendData('message')" type="button">Enviar mensaje</button>
-      <small>El siguiente mensaje se enviara a todos los dispositivos conectados a la sala</small>
-    
-    </div>
-
-    <div class="alert alert-success" role="alert">
-      {{msg}}
-    </div>
-
-    <div class="alert alert-warning" role="alert">
-      {{msg}}
-    </div>
+	
+	    <!-- ==============================================
+	    Hero
+	    =============================================== -->
+      <section class="hero">
+        <div class="container">
+         <div class="row">	
+     
+      <div class="col-lg-6 offset-lg-3">
+        <div class="pb-2">
+          <div *ngIf="!show_message" class="alert-warning">
+            Hemos detectado que no tienes cookies creadas por lo tanto,
+            eres un usuario <b>Anonimo</b> para poder unirte a una sala <b>incia session</b>
+          </div>
+          <div  *ngIf="show_message" class="alert-success">
+            Hola <b>{{show_message.user}}</b>, tu sala es <b>room_{{show_message.id}}</b>
+            
+          </div>
+        </div>
+     
+     <div class="cardbox shadow-lg bg-white">
+      
+      <div class="cardbox-heading">
+       <!-- START dropdown-->
+       <div class="dropdown float-right">
+        <button class="btn btn-flat btn-flat-icon" type="button" data-toggle="dropdown" aria-expanded="false">
+       <em class="fa fa-ellipsis-h"></em>
+        </button>
+        <div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+       <a class="dropdown-item" href="#">Hide post</a>
+       <a class="dropdown-item" href="#">Stop following</a>
+       <a class="dropdown-item" href="#">Report</a>
+        </div>
+       </div><!--/ dropdown -->
+       <div class="media m-0">
+        <div class="d-flex mr-3">
+       <a href=""><img class="img-fluid rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/4.jpg" alt="User"></a>
+        </div>
+        <div class="media-body">
+         <p class="m-0">Benjamin Robinson</p>
+       <small><span><i class="icon ion-md-time"></i>
+        <a href="https://github.com/leifermendez/socket-client" target="_blank">https://github.com/leifermendez/socket-client</a>
+      </span></small>
+        </div>
+       </div><!--/ media -->
+      </div><!--/ cardbox-heading -->
+       
+      <div class="cardbox-item">
+        <ul class="list-ul">
+          <li  *ngFor="let m of messages">{{m}}</li>
+        </ul>
+       <img class="img-fluid" src="https://avatars1.githubusercontent.com/u/15802366" alt="Image">
+      </div><!--/ cardbox-item -->
+      <div class="cardbox-base">
+       <ul class="float-right">
+        <li><a><i class="fa fa-comments"></i></a></li>
+        <li><a><em class="mr-5">12</em></a></li>
+        <li><a><i class="fa fa-share-alt"></i></a></li>
+        <li><a><em class="mr-3">03</em></a></li>
+       </ul>
+       <ul>
+        <li><a><i class="fa fa-thumbs-up"></i></a></li>
+        <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/3.jpeg" class="img-fluid rounded-circle" alt="User"></a></li>
+        <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/1.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
+        <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/5.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
+        <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/2.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
+        <li><a><span>242 Likes</span></a></li>
+       </ul>			   
+      </div><!--/ cardbox-base -->
+      <div class="cardbox-comments">
+        
+       <span class="comment-avatar float-left">
+        <a href=""><img class="rounded-circle" src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/6.jpg" alt="..."></a>                            
+       </span>
+       <div class="search">
+        <input [(ngModel)]="input_message"  placeholder="Write a comment" type="text">
+        <button (click)="sendData('message')" type="button" class="btn btn-primary btn-sm">ENVIAR</button>
+       </div><!--/. Search -->
+  <div class="p-2">
+  
   </div>
-</div>
+      </div><!--/ cardbox-like -->			  
+         
+     </div><!--/ cardbox -->
+
+          </div><!--/ col-lg-6 -->	
+      <div class="col-lg-3">
+        <div class="shadow-lg p-4 mb-2 bg-white author">
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1"><b>Nombre</b></label>
+              <input type="text" [(ngModel)]="user"
+              [ngModelOptions]="{standalone: true}"
+              class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name">
+              <small id="emailHelp"  class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1"><b>ID</b></label>
+              <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="user_id" class="form-control" id="exampleInputPassword1" placeholder="Escribe un id">
+              <small id="exampleInputPassword1"  class="form-text text-muted">Para el ejemplo coloca un ID, puede ser un numero.</small>
+            </div>
+    
+            <button (click)="mockedUser()" type="button" class="btn btn-primary">Submit</button>
+          </form>
+         </div>
+      </div><!--/ col-lg-3 -->
+     
+         </div><!--/ row -->
+        </div><!--/ container -->
+       </section>
